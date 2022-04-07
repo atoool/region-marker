@@ -1,41 +1,8 @@
-
-@media (min-width:320px)  { 
-  svg {
+svg {
   -ms-touch-action: none;
   touch-action: none;
-  height:24vh;
-} }
-@media (min-width:481px)  { svg {
-    -ms-touch-action: none;
-    touch-action: none;
-    height:33vh;
-  }}
-@media (min-width:641px)  {svg {
-  -ms-touch-action: none;
-  touch-action: none;
-  height:48vh;
-}}
-@media (min-width:961px)  { svg {
-  -ms-touch-action: none;
-  touch-action: none;
-  height:55vh;
-}}
-@media (min-width:1025px) { svg {
-  -ms-touch-action: none;
-  touch-action: none;
-  height:60vh;
-} }
-@media (min-width:1281px){
-  svg {
-    -ms-touch-action: none;
-    touch-action: none;
-    height:100vh;
-  }
 }
 
-body {
-  margin: 0;
-}
 image,
 text,
 .jvm-zoomin,
@@ -53,7 +20,7 @@ text,
   overflow: hidden;
   height: 100%;
   width: 100%;
-  /* margin-left: -30px; */
+  margin-left: -30px;
 }
 
 .jvm-tooltip {
