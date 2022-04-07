@@ -25,6 +25,13 @@
   touch-action: none;
   height:60vh;
 } }
+@media (min-width:1281px){
+  svg {
+    -ms-touch-action: none;
+    touch-action: none;
+    height:100vh;
+  }
+}
 
 body {
   margin: 0;
