@@ -26,10 +26,12 @@
         let queryString = new URLSearchParams(paramString);
         for(let pair of queryString.entries()) {
            markers= JSON.parse(pair[1]);
-          //  markers=markers.substr(52,1)
-          //  markers=markers.substr(0,1)
            console.log(markers[0]);
         }
+        let selectedRegions={}
+        markers?.map(r=>selectedRegions={...selectedRegions,
+          [r?.code]:'selected'
+        })
     
         var map = new jsVectorMap({
           map: 'world',
@@ -108,9 +110,24 @@
               fill: '#35373e',
             },
           },
-    
+          
+
+// -------- Series --------
+series: {
+
+  // ---------- Region series ----------
+  regions: [
+    {
+      attribute: 'fill',
+      scale: {
+        "selected": "#0095f6"
+      },
+      values:selectedRegions
+    },
+  ]
+}
         })
     
       </script>
     </body>
-</html>
+</html>,
