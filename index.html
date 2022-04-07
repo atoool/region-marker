@@ -1,0 +1,116 @@
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>JavaScript Vector World Map Example</title>
+        <link rel="stylesheet" href="./dist/css/jsvectormap.css">
+    <script src="./dist/js/jsvectormap.js"></script>
+        <script src="./dist/maps/world.js"></script>
+        </head>
+          <body>
+        <div id="map" ></div>
+      <script>
+        let markers = [
+          {
+            country: 'India',
+            visits: 17,
+            code:'IN'
+          },
+        ];
+
+        let urlString = window.location.search;
+        let paramString = urlString.split('?')[1];
+        let queryString = new URLSearchParams(paramString);
+        for(let pair of queryString.entries()) {
+           markers= JSON.parse(pair[1]);
+          //  markers=markers.substr(52,1)
+          //  markers=markers.substr(0,1)
+           console.log(markers[0]);
+        }
+    
+        var map = new jsVectorMap({
+          map: 'world',
+          selector: '#map',
+          zoomButtons: false,
+    
+        //   regionsSelectable: true,
+        //   markersSelectable: true,
+    
+          // -------- Events --------
+          onRegionSelected: function (index, isSelected, selectedRegions) {
+            console.log(index, isSelected, selectedRegions);
+          },
+          onMarkerSelected: function (code, isSelected, selectedMarkers) {
+            console.log(code, isSelected, selectedMarkers);
+          },
+          onRegionTooltipShow: function (tooltip, code) {
+              markers.forEach((j,i)=>{
+                 if (code?.toLowerCase() === j?.code?.toLowerCase()) {
+                document.getElementsByClassName('jvm-tooltip active')[0].innerHTML= '<b>'+ tooltip.text()+'</b>' + '<div style="display:flex;flex-direction:row;justify-content:center;align-items:center;margin-top:5px"><div style="height:5px;width:5px;background-color: rgba(0, 149, 246, 1);border-radius: 5px;margin-right:5px"></div>Visits '+ j?.visits+'</div>';
+            //   tooltip.selector.innerHTML = tooltip.text() + ' <b>(Hello Russia)</b>';
+            } 
+              })
+            
+          },
+          onMarkerTooltipShow: function (tooltip, index) {
+            tooltip.selector.innerHTML = '<h5 class="mb-0">'+tooltip.text()+'</h5>' + '<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p><small class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</small>';
+          },
+    
+          // -------- Labels --------
+          labels: {
+            markers: {
+              render: function(index) {
+                return markers[index]?.country??'';
+              },
+              offsets: function(index) {
+                return [0, 0]
+              }
+            },
+            regions: {
+              render: function(code) {
+                  return '';
+              },
+            }
+          },
+    
+          // -------- Region and label style --------
+          regionStyle: {
+            selected: {
+              fill: "#5c5cff"
+            },hover:{fill:"#dccbff"}
+          },
+          regionLabelStyle: {},
+    
+          // -------- Marker and label style --------
+        //   markers: marskers,
+          markerStyle: {
+            initial: {
+              fill: '#ff5566'
+            },
+            hover: {
+              stroke: "#dccbff",
+              fillOpacity: 1,
+              strokeWidth: 2.5,
+              fill: '#ff5566'
+            },
+            selected: {
+              fill: '#ff9251'
+            }
+          },
+          markerLabelStyle: {
+            initial: {
+              fontFamily: 'Poppins',
+              fontSize: 13,
+              fontWeight: 500,
+              fill: '#35373e',
+            },
+          },
+    
+        })
+    
+      </script>
+    </body>
+</html>
