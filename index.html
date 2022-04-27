@@ -20,18 +20,20 @@
           },
         ];
 
+        let selectedRegions=[]
         let urlString = window.location.search;
         let paramString = urlString.split('?')[1];
         let queryString = new URLSearchParams(paramString);
         for(let pair of queryString.entries()) {
            markers= JSON.parse(pair[1]);
            console.log(markers[0]);
+           markers?.map(r=>{
+             r.code=r.code?.toUpperCase();
+             selectedRegions=[...selectedRegions,
+          r?.code,
+        ];})
         }
-        let selectedRegions={}
-        markers?.map(r=>selectedRegions={...selectedRegions,
-          [r?.code]:'selected'
-        })
-    
+        
         var map = new jsVectorMap({
           map: 'world',
           selector: '#map',
@@ -112,21 +114,23 @@
           
 
 // -------- Series --------
-series: {
+// series: {
 
-  // ---------- Region series ----------
-  regions: [
-    {
-      attribute: 'fill',
-      scale: {
-        "selected": "#0095f6"
-      },
-      values:selectedRegions
-    },
-  ]
-}
-        })
-    
+//   // ---------- Region series ----------
+//   regions: [
+//     {
+//       attribute: 'fill',
+//       scale: {
+//         "selected": "#0095f6"
+//       },
+//       values:selectedRegions
+//     },
+//   ]
+// }
+        });
+    setTimeout(() => {
+      map.setSelected('regions', selectedRegions);
+    }, 2000);
       </script>
     </body>
 </html>
